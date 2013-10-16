@@ -1,6 +1,18 @@
+/**
+ * jemul8 - JavaScript x86 Emulator
+ * http://jemul8.com/
+ *
+ * Copyright 2013 jemul8.com (http://github.com/asmblah/jemul8)
+ * Released under the MIT license
+ * http://jemul8.com/MIT-LICENSE.txt
+ */
 
 html, body, div, span, h1, h2, h3, h4 {
-    margin: 0; padding: 0; border: 0 none; outline: 0 none;
+    outline: 0 none;
+    border: 0 none;
+
+    margin: 0;
+    padding: 0;
 }
 
 html, body {
@@ -16,7 +28,7 @@ body {
 
 #screenVGA {
     position: absolute;
-    margin: -200px 0px 0px -360px;
+    margin: -200px 0 0 -360px;
 
     border: solid #FFFFFF 2px;
 

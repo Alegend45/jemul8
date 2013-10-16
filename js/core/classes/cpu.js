@@ -707,17 +707,17 @@ define([
                  *    just delete rest of cache after the changed instruction
                  *    by setting the length property of the cache array
                  */
-                insn = cache_insn[offset];
+                /*insn = cache_insn[offset];
 
                 if (insn) {
                     // Move pointer past Instruction
                     offset += insn.lenBytes;
                 // Instruction needs to be decoded into cache
-                } else {
+                } else {*/
                     // Decode & create new Instruction, then store in cache,
                     //  indexed by address for fast lookups later
-                    insn = cache_insn[offset]
-                        = Instruction.decode(
+                    insn = /*cache_insn[offset]
+                        = */Instruction.decode(
                             decoder,
                             read,
                             offset,
@@ -731,7 +731,7 @@ define([
 
                     // Move past decoded instruction
                     offset += insn.lenBytes;
-                }
+                //}
 
                 // Execute immediately
                 EIP.set(offset);
@@ -784,11 +784,10 @@ define([
             ++yps;
             ips += insns;
             if (ticksNow > (ticksLastUpdate + 1000) || this.isHalted) {
-                $("#performance").text(
+                (document.getElementById("performance") || {}).textContent =
                     "insns/sec: " + ips
                     + ", yields/sec: " + yps
-                    + " :: " + (this.isHalted ? "HALTED" : "RUNNING")
-                );
+                    + " :: " + (this.isHalted ? "HALTED" : "RUNNING");
 
                 ips = yps = 0;
                 ticksLastUpdate = ticksNow;

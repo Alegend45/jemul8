@@ -214,23 +214,30 @@ define([
 		var len;
 		var x;
 		var y;
+		var romPath;
 
-		// Download & store VGABIOS firmware image
-		HTTP.get(
-			machine.emu.getSetting("vgabios")
-			//"docs/vgabios-0.6c/VGABIOS-lgpl-latest.debug.bin")
-			//"docs/bochs-20100605/bios/VGABIOS-elpin-2.40")
-			, function (path, buffer) {
-				machine.mem.loadROM(buffer, 0xC0000, 1);
-				done();
-			}, function (path) {
-				fail();
-			}
-		);
+		romPath = machine.emu.getSetting("vga.bios");
+
+		if (romPath) {
+			// Download & store VGABIOS firmware image
+			HTTP.get(
+				romPath
+				//"docs/vgabios-0.6c/VGABIOS-lgpl-latest.debug.bin")
+				//"docs/bochs-20100605/bios/VGABIOS-elpin-2.40")
+				, function (path, buffer) {
+					machine.mem.loadROM(buffer, 0xC0000, 1);
+					done();
+				}, function (path) {
+					fail();
+				}
+			);
+		} else {
+			done();
+		}
 
 		// VGA output
 		//	TODO: Separate DOM access out into plugins for eg. jQuery
-		this.screenVGA = $("#screenVGA")[ 0 ];
+		this.screenVGA = document.getElementById("screenVGA");
 		if (this.screenVGA && this.screenVGA.getContext) {
 			this.ctx_screenVGA = this.screenVGA.getContext("2d");
 			this.imageData = this.ctx_screenVGA.createImageData(

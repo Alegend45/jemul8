@@ -112,8 +112,8 @@ define([
         util.assert(util.isFunction(fnWrite),
             "Memory.registerMemoryHandlers() :: 'fnWrite' must be a valid callback (function)");
         // 'arg' may not be a device in future...!
-        util.assert(arg && (arg instanceof IODevice),
-            "Memory.registerMemoryHandlers() :: 'arg' must be an IODevice");
+        //util.assert(arg && (arg instanceof IODevice),
+        //    "Memory.registerMemoryHandlers() :: 'arg' must be an IODevice");
 
         var machine = arg.machine;
 
@@ -247,6 +247,20 @@ define([
         } else {
             handler = accessor.handler;
             handler.fnWrite(addrA20, val, size, handler.arg);
+        }
+    };
+    Memory.prototype.writePhysicalBlock = function (addrPhysical, fromBuffer, size) {
+        var accessor = this.mapPhysical(addrPhysical, size),
+            addrA20 = accessor.addrA20,
+            buf = accessor.buf,
+            handler;
+
+        // Read memory buffer
+        if (buf) {
+            Buffer.copy(fromBuffer, 0, buf, addrA20 - accessor.addrStart_buf, Buffer.getBufferLength(fromBuffer));
+        // Read via handler function
+        } else {
+            util.panic("Memory.writePhysicalBlock() :: Memory-mapped I/O not supported");
         }
     };
     // Fetches the raw bytes of a descriptor from GDT

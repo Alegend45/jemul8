@@ -1,5 +1,5 @@
 /**
- * jemul8 - JavaScript x86 Emulator v0.0.1
+ * jemul8 - JavaScript x86 Emulator
  * http://jemul8.com/
  *
  * Copyright 2013 jemul8.com (http://github.com/asmblah/jemul8)
@@ -19,15 +19,15 @@ define({
 }, [
     "vendor/chai/chai",
     "modular",
+    "module",
     "require",
     "vendor/sinon/sinon",
     "vendor/sinon-chai/lib/sinon-chai",
-    "vendor/mocha/mocha",
-
-    "js/jquery/jquery-1.7.1"
+    "vendor/mocha/mocha"
 ], function (
     chai,
     modular,
+    module,
     require,
     sinon,
     sinonChai
@@ -61,10 +61,15 @@ define({
     }(mocha.reporters.Base));
 
     require([
+        "bdd/acceptance/real-mode/CPU/Instruction/pop-Test",
+        "bdd/acceptance/real-mode/CPU/Instruction/push-Test",
+        "bdd/acceptance/real-mode/IODevice/CMOS-Test",
+        "bdd/acceptance/real-mode/IODevice/PIT-Test",
         "bdd/acceptance/real-mode/NOP-Test",
         "bdd/acceptance/real-mode/ROMBIOS-POST-Test",
         "bdd/unit/js/core/classes/registerTest",
         "bdd/unit/js/plugins/std.keyboardTest",
+        "bdd/unit/js/EmulatorTest",
         "bdd/unit/js/Jemul8Test",
         "bdd/unit/js/RegisterTest",
         "bdd/unit/js/utilTest"
